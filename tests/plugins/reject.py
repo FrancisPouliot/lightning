@@ -22,7 +22,7 @@ def on_connected(peer, plugin):
     return {'result': 'continue'}
 
 
-@plugin.method('init')
+@plugin.init()
 def init(configuration, options, plugin):
     plugin.reject_ids = []
 
