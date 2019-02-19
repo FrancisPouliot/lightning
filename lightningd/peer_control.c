@@ -414,8 +414,8 @@ void channel_errmsg(struct channel *channel,
 
 /* Possible outcomes returned by the `connected` hook. */
 enum peer_connected_hook_result {
-	peer_connected_continue,
-	peer_connected_disconnect,
+	PEER_CONNECTED_CONTINUE,
+	PEER_CONNECTED_DISCONNECT,
 };
 
 struct peer_connected_hook_payload {
