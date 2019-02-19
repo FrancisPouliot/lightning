@@ -647,9 +647,12 @@ peer_connected_deserialize(const tal_t *ctx, const char *buffer,
 
 	resp = tal(ctx, struct peer_connected_hook_response);
 	if (json_tok_streq(buffer, resulttok, "continue"))
-		resp->result = peer_connected_continue;
+		resp->result = PEER_CONNECTED_CONTINUE;
+	else if (json_tok_streq(buffer, resulttok, "disconnect"))
+		resp->result = PEER_CONNECTED_DISCONNECT;
 	else
-		resp->result = peer_connected_disconnect;
+		fatal("Plugin returned an invalid response to the connected "
+		      "hook: %s", buffer);
 
 	return resp;
 }
@@ -667,7 +670,7 @@ peer_connected_hook_cb(struct peer_connected_hook_payload *payload,
 	int peer_fd = payload->peer_fd;
 	u8 *error;
 
-	if (response && response->result == peer_connected_disconnect) {
+	if (response && response->result == PEER_CONNECTED_DISCONNECT) {
 		close(peer_fd);
 		tal_free(payload);
 		return;
