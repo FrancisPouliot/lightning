@@ -230,9 +230,9 @@ static void decode_h(struct bolt11 *b11,
 /* BOLT #11:
  *
  * `x` (6): `data_length` variable.  `expiry` time in seconds
- * (big-endian). Default is 3600 (1 hour) if not specified.
+ * (big-endian). Default is 86400 (1 day) if not specified.
  */
-#define DEFAULT_X 3600
+#define DEFAULT_X 86400
 static char *decode_x(struct bolt11 *b11,
                       struct hash_u5 *hu5,
                       u5 **data, size_t *data_len,
